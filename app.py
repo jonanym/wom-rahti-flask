@@ -10,21 +10,23 @@ app = Flask(__name__)
 def index():
 
     if request.method == 'GET':
-        return {
+        return { 
             'method': request.method,
-            'msg': 'Github webhook deployment works!',
-            'env': os.environ.get('ENV_VAR', 'Cannot find variable ENV_VAR')
+            'msg': 'GitHub Webhook deployment works!', 
+            'env': os.environ.get('ENV_VAR', 'Cannot find variable ENV_VAR') 
         }
+        
     if request.method == 'POST':
-        return{
-            'msg': 'You posted something',
+        body = request.get_json()
+
+        return {
+            'msg': 'You POSTed something',
+            'request_body': body
         }
     ret = { 
         'msg': 'Flask works on Rahti!', 
         'env': os.environ.get('ENV_VAR', 'Cannot find variable ENV_VAR') 
     }
-
-    return ret
 
 
 if __name__ == "__main__":
