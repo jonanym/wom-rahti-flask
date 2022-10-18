@@ -15,13 +15,14 @@ Content-Type: application/json
 
 ###
 
-GET {{baseUrl}}/test-route
+GET {{baseUrl}}/services
 
 ###
 
-POST {{baseUrl}}/test-route
+POST {{baseUrl}}/services
 Content-Type: application/json
 
 { 
-    "testkey": "Test value"
+    "name": "Laundrey",
+    "price": 8
 }
