@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 2038d3a38f13813377daef96dff56ed8f3e87432
 # For use with the Rest Client VSCode extension (humao.rest-client)
 
 @baseUrl=http://127.0.0.1:5000
@@ -10,7 +6,15 @@ GET {{baseUrl}}
 
 ###
 
-<<<<<<< HEAD
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+    "testkey": "Test value"
+}
+
+###
+
 GET {{baseUrl}}/test-route
 
 ###
@@ -20,25 +24,4 @@ Content-Type: application/json
 
 { 
     "testkey": "Test value"
-=======
-POST {{baseUrl}}
-Content-Type: application/json
-
-{ 
-    "testkey": "Test value",
-    "foo": "bar"
-}
-
-###
-
-GET {{baseUrl}}/users
-
-###
-
-POST {{baseUrl}}/users
-Content-Type: application/json
-
-{ 
-    "email": "john.doe@foo.bar"
->>>>>>> 2038d3a38f13813377daef96dff56ed8f3e87432
 }

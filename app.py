@@ -6,14 +6,22 @@ load_dotenv()
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    ret = { 
+    
+    if request.method == 'GET':
+        return {
+            'method': request.method,
         'msg': 'github webhook works', 
-        'env': os.environ.get('ENV_VAR', 'Cannot find variable ENV_VAR') 
-    }
+        'env': os.environ.get('ENV_VAR', 'Cannot find variable ENV_VAR')
+        }
 
-    return ret
+    if request.method == 'POST':
+        body = request.get_json()
+        return {
+            'msg': 'You POSTed something',
+            'request_body': body
+        }
 
 
 if __name__ == "__main__":
