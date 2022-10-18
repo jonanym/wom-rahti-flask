@@ -38,7 +38,12 @@
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"ms-python.python",
+<<<<<<< HEAD
 				"ms-python.vscode-pylance"
+=======
+				"ms-python.vscode-pylance",
+				"humao.rest-client"
+>>>>>>> 2038d3a38f13813377daef96dff56ed8f3e87432
 			]
 		}
 	},
