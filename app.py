@@ -14,6 +14,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DB_URL')
 
 db.init_app(app)
 
+with app.app_context():
+    db.create_all()
 
 class Service(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
@@ -22,8 +24,13 @@ class Service(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
-#with app.app_context():
-    #db.create_all()
+
+class Order(db.Model):
+    id = db.Column(db.Integer, unique=True, primary_key=True)
+    service = db.Column(db.String, unique=True, nullable=False)
+    cabin_id = db.Column(db.String, nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.now())
+    updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -64,5 +71,27 @@ def services():
 
         return {'msg: ':'Service created', 'name': new_service.name}
 
+
+@app.route("/orders", methods=['GET', 'POST'])
+def orders():
+    if request.method == 'GET':
+        orders = []
+        for order in Order.query.all():
+            orders.append({
+                'id':order.id,
+                'service':order.service,
+                'cabin_id':order.cabin_id,
+                'created_at':order.created_at,
+                'updated_at':order.updated_at
+            })
+        return orders
+
+    if request.method == 'POST':
+        body = request.get_json()
+        new_order = Order(service=body['service'], cabin_id=body['cabin_id'])
+        db.session.add(new_order)
+        db.session.commit()
+
+        return {'msg: ':'Order created', 'name': new_order.id}
 if __name__ == "__main__":
     app.run(debug=True, port=8080, host='0.0.0.0')

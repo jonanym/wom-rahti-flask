@@ -19,10 +19,24 @@ GET {{baseUrl}}/services
 
 ###
 
+GET {{baseUrl}}/orders
+
+###
+
 POST {{baseUrl}}/services
 Content-Type: application/json
 
 { 
     "name": "Laundrey",
     "price": 8
+}
+
+###
+
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{ 
+    "service": "Laundrey",
+    "cabin_id": "633297f6ebaab96d3d2e1fa0"
 }
