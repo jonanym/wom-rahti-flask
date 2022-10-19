@@ -1,3 +1,4 @@
+from distutils.log import error
 import os
 from flask import Flask, request
 from dotenv import load_dotenv
@@ -14,9 +15,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DB_URL')
 
 db.init_app(app)
 
-with app.app_context():
-    db.create_all()
+#with app.app_context():
+    #db.create_all()
 
+## Models
 class Service(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     name = db.Column(db.String, unique=True, nullable=False)
@@ -49,7 +51,7 @@ def index():
             'request_body': body
         }
 
-@app.route("/services", methods=['GET', 'POST'])
+@app.route("/services", methods=['GET', 'POST','DELETE', 'PATCH'])
 def services():
     if request.method == 'GET':
         services = []
@@ -72,7 +74,7 @@ def services():
         return {'msg: ':'Service created', 'name': new_service.name}
 
 
-@app.route("/orders", methods=['GET', 'POST'])
+@app.route("/orders", methods=['GET', 'POST', 'DELETE'])
 def orders():
     if request.method == 'GET':
         orders = []
@@ -93,5 +95,17 @@ def orders():
         db.session.commit()
 
         return {'msg: ':'Order created', 'name': new_order.id}
+
+    if request.method == 'DELETE':
+        body = request.get_json()
+        delete_order = Order.query.filter_by(id=body['id']).first()
+        try:
+            db.session.delete(delete_order)
+            db.session.commit()
+            return {'msg :':'Order deleted'}
+        except:
+            return{'error': 'något gick fel'}
+        
+        
 if __name__ == "__main__":
     app.run(debug=True, port=8080, host='0.0.0.0')

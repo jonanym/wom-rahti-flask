@@ -40,3 +40,12 @@ Content-Type: application/json
     "service": "Laundrey",
     "cabin_id": "633297f6ebaab96d3d2e1fa0"
 }
+
+###
+
+DELETE {{baseUrl}}/orders
+Content-Type: application/json
+
+{ 
+    "id": 1
+}
