@@ -19,20 +19,16 @@ db.init_app(app)
     #db.create_all()
 
 ## Models
-class Service(db.Model):
-    id = db.Column(db.Integer, unique=True, primary_key=True)
-    name = db.Column(db.String, unique=True, nullable=False)
-    price = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime, default=db.func.now())
-    updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
-
 
 class Order(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
-    service = db.Column(db.String, unique=True, nullable=False)
+    service = db.Column(db.String, nullable=False)
     cabin_id = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
+
+with app.app_context():
+    db.create_all()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():

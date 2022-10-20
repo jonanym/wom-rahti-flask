@@ -1,6 +1,6 @@
 # For use with the Rest Client VSCode extension (humao.rest-client)
 
-@baseUrl=http://127.0.0.1:5000
+@baseUrl= https://flask-api-nymajona.rahtiapp.fi
 
 GET {{baseUrl}}
 
@@ -27,8 +27,8 @@ POST {{baseUrl}}/services
 Content-Type: application/json
 
 { 
-    "name": "Laundrey",
-    "price": 8
+    "name": "TestService",
+    "price": 30
 }
 
 ###
@@ -37,8 +37,8 @@ POST {{baseUrl}}/orders
 Content-Type: application/json
 
 { 
-    "service": "Laundrey",
-    "cabin_id": "633297f6ebaab96d3d2e1fa0"
+    "service": "TestService",
+    "cabin_id": "123123123123123123"
 }
 
 ###
